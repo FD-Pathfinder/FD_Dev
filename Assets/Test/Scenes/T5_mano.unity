@@ -1846,6 +1846,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: handle
       objectReference: {fileID: 0}
+    - target: {fileID: 665142770719095741, guid: 610f02b4003581a4eb321a7ece409c27,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 2685202693491440893, guid: 610f02b4003581a4eb321a7ece409c27,
         type: 3}
       propertyPath: m_RootOrder
@@ -1901,7 +1906,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5912939438830877822, guid: 610f02b4003581a4eb321a7ece409c27,
+        type: 3}
+      propertyPath: m_TagString
+      value: GameController
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3844628997930137868, guid: 610f02b4003581a4eb321a7ece409c27, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 610f02b4003581a4eb321a7ece409c27, type: 3}
 --- !u!1 &2017564896
 GameObject:
