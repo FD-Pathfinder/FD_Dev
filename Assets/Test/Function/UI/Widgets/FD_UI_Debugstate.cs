@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class FD_UI_Debugstate : MonoBehaviour,UpdateUI
     //TODO
     //显示光标坐标
     //显示地图坐标
+    //显示调试项
 
     #region 变量声明
     //声明检测对象
@@ -16,15 +18,13 @@ public class FD_UI_Debugstate : MonoBehaviour,UpdateUI
     [SerializeField]
     private Mano_InputManger dete_InputSystem;
     
-    [Tooltip("生成地图的坐标")]
-    private Vector3 dete_Map;
 
     //对应UI的debugdate上的3个message的引用，用来更新UI信息
     Text Line1;
     Text Line2;
     Text Line3;
     #endregion
-
+    public static event Action FD_Debugging;
     private void Awake()
     {
         InitText();
@@ -32,10 +32,10 @@ public class FD_UI_Debugstate : MonoBehaviour,UpdateUI
     public void UpdateMe()
     {
         #region 更新信息
-        ShowText("光标坐标信息" + dete_InputSystem.PlayerCursor.transform.position.ToString(), Line1);
-        ShowText("地图坐标信息" + GameObject.FindWithTag("MainMap").transform.position.ToString(),Line2);
+        ShowText("当前手势" + ManomotionManager.Instance.Hand_infos[0].hand_info.gesture_info.mano_gesture_continuous.ToString(), Line1);
         #endregion
     }
+
 
 
     /// <summary>

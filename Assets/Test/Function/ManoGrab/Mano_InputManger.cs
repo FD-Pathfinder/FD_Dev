@@ -1,46 +1,64 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Diagnostics;
 using UnityEngine.UIElements;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-// 当前类因为还在测试和完善，所以变量都是public，方便调用和监测
+using static UnityEngine.UI.ContentSizeFitter;
+//定义一个IcanInteractive接口，用来告诉光标接触到的物体有没有准备交互用到的函数
+public interface IcanInteracted
+{
+    public void YesInteracted();
+    public void NoInteracted();
+}
+
 public class Mano_InputManger : MonoBehaviour
 {
     //todo
     //通过tag获取玩家光标预制件
     //提供一个方法用于使光标黏附在手上
-    //提供一个抓住松手的方法和它的接口定义
-    public ManoGestureContinuous OpenHand= (ManoGestureContinuous)2;
-    public ManoGestureContinuous CloseHand= (ManoGestureContinuous)4;
-    
-[Tooltip("玩家光标，用于存放用tag获取到的玩家光标")]
+    //广播事件抓住松手
+    //记录手势变换前一个手势
+
+    [Tooltip("玩家光标，用于存放用tag获取到的玩家光标")]
     private GameObject _PlayerCursor;
-    public GameObject PlayerCursor 
+    public GameObject PlayerCursor
     {
         get { return _PlayerCursor; }
     }
 
-    [Tooltip("YES NO材质，用来快速测试调试")]
-    public Material YesMaterial;
-    public Material NoMaterial;
+    private PlayerCusor SC_PlayerCursor;
 
+    public static event Action IAmTouching;
+    public static event Action IAmRelease;
 
-    public static event Action IWasTouching;
+    enum FD_LastGesture
+    {
+        OPENHAND = 0,
+        CLOSEHAND = 1
+    }
+    //声明个枚举，用来记录上一次的手势，比0和1好记点，到时候还会有手心手背的功能加入,你们写逻辑可以用到这个
+    FD_LastGesture _Playerlastgesture;
 
-    public static event Action IWasLeaving;
-
-
+    private void Awake()
+    {
+        //默认是打开状态，直到第一次监测到合上手
+        _Playerlastgesture = FD_LastGesture.OPENHAND;
+        //获取地图上的小光标
+        GetCusorInMap();
+    }
     void Update()
     {
-           // 更新光标信息
-        GetCusorInMap();
+        //让光标粘手上
         LetCursorAttachToHand();
-        //实时检测是否能抓起物体
+        //告诉订阅了手势更改的家伙手势改变了,只会在手势改变的时候更新
+        SendingStateChange();
+
     }
    
-
     /// <summary>
     /// 获取生成出来的玩家光标，同时初始化一遍父对象
     /// </summary>
@@ -61,15 +79,41 @@ public class Mano_InputManger : MonoBehaviour
 
 
     /// <summary>
-    /// 触发碰撞判定
+    /// 广播手的状态更改,只在每次手状态更改的时候广播一次
     /// </summary>
-    /// <param name="other"></param>
-    private void OnTriggerStay(Collider other)
+    private void SendingStateChange()
     {
-        if (ManomotionManager.Instance.Hand_infos[0].hand_info.gesture_info.mano_gesture_continuous == CloseHand)
+        if (ManomotionManager.Instance.Hand_infos[0].hand_info.gesture_info.mano_gesture_continuous == ManoGestureContinuous.OPEN_HAND_GESTURE && _Playerlastgesture == FD_LastGesture.CLOSEHAND)
         {
-            
+            IAmRelease?.Invoke();
+            _Playerlastgesture = FD_LastGesture.OPENHAND;
+            Debug.Log("打开");
         }
+        else if (ManomotionManager.Instance.Hand_infos[0].hand_info.gesture_info.mano_gesture_continuous == ManoGestureContinuous.CLOSED_HAND_GESTURE && _Playerlastgesture == FD_LastGesture.OPENHAND)
+        {
+            IAmTouching?.Invoke();
+            _Playerlastgesture = FD_LastGesture.CLOSEHAND;
+            Debug.Log("关闭");
+        }
+    }
+    /// <summary>
+    /// 用来初始化其他的输入组件
+    /// </summary>
+
+    private void SetUpMano()
+    {
+        //是否计算手势，详见manomotion手势支持
+        ManomotionManager.Instance.ShouldCalculateGestures(true);
+        //是否计算3D骨架
+        ManomotionManager.Instance.ShouldCalculateSkeleton3D(false);
+        //是否用快速模式，可能会产生点问题
+        ManomotionManager.Instance.ShouldRunFastMode(false);
+        //是否计算手腕信息
+        ManomotionManager.Instance.ShouldRunWristInfo(false);
+        //是否计算手指信息
+        ManomotionManager.Instance.ShouldRunFingerInfo(false);
+        //是否进行外轮廓估计，很耗性能
+        ManomotionManager.Instance.ShouldRunContour(false);
     }
 
 

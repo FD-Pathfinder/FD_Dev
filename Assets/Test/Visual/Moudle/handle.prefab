@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2685202693491440893}
-  - component: {fileID: 3844628997930137868}
+  - component: {fileID: 3467590664712021023}
   m_Layer: 0
   m_Name: handle
   m_TagString: GameController
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3844628997930137868
+--- !u!65 &3467590664712021023
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,7 +44,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.04, y: 0.08, z: 0.04}
+  m_Size: {x: 0.04, y: 0.1, z: 0.04}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5912939438830877822
 GameObject:
@@ -57,9 +57,8 @@ GameObject:
   - component: {fileID: 4010745889301084896}
   - component: {fileID: 6149016237653966312}
   - component: {fileID: 931897392882387450}
-  - component: {fileID: 753155496679799758}
   m_Layer: 0
-  m_Name: yourhand
+  m_Name: PlayerCursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,16 +129,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &753155496679799758
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5912939438830877822}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2.5, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
