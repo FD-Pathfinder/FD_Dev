@@ -39,5 +39,9 @@ public class FD_Interaction : MonoBehaviour, IcanInteracted
     }
 
     //当有东西在摸这个游戏对象时，取它的引用
+    private void OnTriggerStay(Collider WhoTestMe)
+    {
+        WhoTouchMe = WhoTestMe.gameObject;
+    }
 }
 
