@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/External/_Mano/ManoMotion ARFoundation/Examples/Inetraction/Example
       Interaction.unity
     guid: 27f43207c9bffcb49bcf1d568179f758
+  - enabled: 0
+    path: Assets/External/_Mano/ManoMotion ARFoundation/Scenes/ManoMotionSDKProFeatures.unity
+    guid: 2e8ecbb9ea2e340009ac8d7dd6fbd854
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 6ee72d15cf39dd748a13eac57397b9af,
       type: 2}

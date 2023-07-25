@@ -35,6 +35,7 @@ public class Mano_InputManger : MonoBehaviour
     public static event Action IAmTouching;
     public static event Action IAmRelease;
 
+    GestureInfo FD_gestureInfo;
     enum FD_LastGesture
     {
         OPENHAND = 0,
@@ -52,6 +53,7 @@ public class Mano_InputManger : MonoBehaviour
     }
     void Update()
     {
+        FD_gestureInfo = ManomotionManager.Instance.Hand_infos[0].hand_info.gesture_info;
         //让光标粘手上
         LetCursorAttachToHand();
         //告诉订阅了手势更改的家伙手势改变了,只会在手势改变的时候更新
@@ -83,13 +85,13 @@ public class Mano_InputManger : MonoBehaviour
     /// </summary>
     private void SendingStateChange()
     {
-        if (ManomotionManager.Instance.Hand_infos[0].hand_info.gesture_info.mano_gesture_continuous == ManoGestureContinuous.OPEN_HAND_GESTURE && _Playerlastgesture == FD_LastGesture.CLOSEHAND)
+        if (FD_gestureInfo.mano_gesture_continuous == ManoGestureContinuous.OPEN_HAND_GESTURE && _Playerlastgesture == FD_LastGesture.CLOSEHAND)
         {
             IAmRelease?.Invoke();
             _Playerlastgesture = FD_LastGesture.OPENHAND;
             Debug.Log("打开");
         }
-        else if (ManomotionManager.Instance.Hand_infos[0].hand_info.gesture_info.mano_gesture_continuous == ManoGestureContinuous.CLOSED_HAND_GESTURE && _Playerlastgesture == FD_LastGesture.OPENHAND)
+        else if (FD_gestureInfo.mano_gesture_continuous == ManoGestureContinuous.CLOSED_HAND_GESTURE && _Playerlastgesture == FD_LastGesture.OPENHAND)
         {
             IAmTouching?.Invoke();
             _Playerlastgesture = FD_LastGesture.CLOSEHAND;
@@ -97,24 +99,9 @@ public class Mano_InputManger : MonoBehaviour
         }
     }
     /// <summary>
-    /// 用来初始化其他的输入组件
+    /// 用来初始化Mano功能
     /// </summary>
 
-    private void SetUpMano()
-    {
-        //是否计算手势，详见manomotion手势支持
-        ManomotionManager.Instance.ShouldCalculateGestures(true);
-        //是否计算3D骨架
-        ManomotionManager.Instance.ShouldCalculateSkeleton3D(false);
-        //是否用快速模式，可能会产生点问题
-        ManomotionManager.Instance.ShouldRunFastMode(false);
-        //是否计算手腕信息
-        ManomotionManager.Instance.ShouldRunWristInfo(false);
-        //是否计算手指信息
-        ManomotionManager.Instance.ShouldRunFingerInfo(false);
-        //是否进行外轮廓估计，很耗性能
-        ManomotionManager.Instance.ShouldRunContour(false);
-    }
 
 
 

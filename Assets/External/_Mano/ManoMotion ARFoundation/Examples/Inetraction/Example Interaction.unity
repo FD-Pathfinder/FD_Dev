@@ -149,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1291009250987664, guid: 0f8504ddba966c5459c5954aff90da2d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1412737396818478, guid: 0f8504ddba966c5459c5954aff90da2d, type: 3}
       propertyPath: m_IsActive
@@ -1158,7 +1158,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &58710612
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3033,7 +3033,7 @@ PrefabInstance:
     - target: {fileID: 114578675002002822, guid: 84b17eee54c744578b650ff304284bda,
         type: 3}
       propertyPath: _showPickDrop
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114578675002002822, guid: 84b17eee54c744578b650ff304284bda,
         type: 3}
@@ -3074,6 +3074,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _showDepthEstimation
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114578675002002822, guid: 84b17eee54c744578b650ff304284bda,
+        type: 3}
+      propertyPath: _showGestureAnalysis
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114578675002002822, guid: 84b17eee54c744578b650ff304284bda,
         type: 3}
@@ -3600,7 +3605,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &489481004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7470,6 +7475,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TryOnManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6561694766869096481, guid: 39f3f199f6cfdfb4e919775455b2ce95,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6561694766869096487, guid: 39f3f199f6cfdfb4e919775455b2ce95,
         type: 3}
       propertyPath: m_RootOrder
@@ -10881,7 +10891,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1486871277285738, guid: bff41d146b94d43cd9af2a39cda8476d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114518841623097860, guid: bff41d146b94d43cd9af2a39cda8476d,
         type: 3}
@@ -13673,7 +13683,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2115645628
 MonoBehaviour:
   m_ObjectHideFlags: 0

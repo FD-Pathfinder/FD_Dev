@@ -546,6 +546,11 @@ PrefabInstance:
       propertyPath: arCameraBackground
       value: 
       objectReference: {fileID: 231749579}
+    - target: {fileID: 861438185678847608, guid: d51db39ed46eb16419119819e79cc835,
+        type: 3}
+      propertyPath: maxCustomResolution
+      value: 700
+      objectReference: {fileID: 0}
     - target: {fileID: 3311050235920247876, guid: d51db39ed46eb16419119819e79cc835,
         type: 3}
       propertyPath: m_Pivot.x

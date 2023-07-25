@@ -17,8 +17,6 @@ public class FD_UI : MonoBehaviour
     //提供一个接口用于更新UI信息，每个与UI相关的脚本都需要提供更新自身UI信息的实现
     //提供初始化显示控件的方法
 
-    public static event Action UIupadteing;
-
     [SerializeField]
     //目前UI控件只有调试这一个
     private FD_UI_Debugstate Debugstate;
