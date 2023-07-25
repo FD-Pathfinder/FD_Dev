@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Diagnostics;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UIElements;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -35,6 +36,8 @@ public class Mano_InputManger : MonoBehaviour
     public static event Action IAmTouching;
     public static event Action IAmRelease;
 
+    public string debugmessage= string.Empty;
+
     GestureInfo FD_gestureInfo;
     enum FD_LastGesture
     {
@@ -43,12 +46,17 @@ public class Mano_InputManger : MonoBehaviour
     }
     //声明个枚举，用来记录上一次的手势，比0和1好记点，到时候还会有手心手背的功能加入,你们写逻辑可以用到这个
     FD_LastGesture _Playerlastgesture;
+    [SerializeField]
+    private GameObject playercursor; 
 
     private void Awake()
     {
         //默认是打开状态，直到第一次监测到合上手
         _Playerlastgesture = FD_LastGesture.OPENHAND;
-        //获取地图上的小光标
+        //获取地图上的小光
+    }
+    private void Start()
+    {
         GetCusorInMap();
     }
     void Update()
@@ -66,8 +74,7 @@ public class Mano_InputManger : MonoBehaviour
     /// </summary>
     private void GetCusorInMap()
     {
-        _PlayerCursor = GameObject.FindWithTag("GameController");
-        _PlayerCursor.transform.SetParent(Camera.main.transform);
+        _PlayerCursor = Instantiate(playercursor,Camera.main.transform);
     }
 
     /// <summary>
@@ -89,18 +96,16 @@ public class Mano_InputManger : MonoBehaviour
         {
             IAmRelease?.Invoke();
             _Playerlastgesture = FD_LastGesture.OPENHAND;
-            Debug.Log("打开");
+            debugmessage+= "广播手打开";
         }
         else if (FD_gestureInfo.mano_gesture_continuous == ManoGestureContinuous.CLOSED_HAND_GESTURE && _Playerlastgesture == FD_LastGesture.OPENHAND)
         {
             IAmTouching?.Invoke();
             _Playerlastgesture = FD_LastGesture.CLOSEHAND;
-            Debug.Log("关闭");
+            debugmessage+= "广播手关闭";
         }
+        debugmessage+= "对比上次没变化，每次闪动代表一次更新状态";
     }
-    /// <summary>
-    /// 用来初始化Mano功能
-    /// </summary>
 
 
 

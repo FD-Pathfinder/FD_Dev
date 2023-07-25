@@ -11,12 +11,13 @@ public class AudioManager : MonoBehaviour
     private void Awake()
     {
         Initialized_me();
+        Mano_InputManger.IAmRelease += PlayUISound;
+        Mano_InputManger.IAmTouching += PlayUISound;
+        FD_Interaction.test += PlayUISound;
     }
     private void Initialized_me()
     {
         MyUIAudioSource= GetComponent<AudioSource>();
-        FD_UI_Debugstate.FD_Debugging+= PlayUISound;
-
     }
 
     public void PlayUISound()
