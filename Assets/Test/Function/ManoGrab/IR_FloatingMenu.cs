@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 
@@ -53,12 +54,13 @@ public class IR_FloatingMenu : FD_Interaction
                 return ButtonPosition;
 
             case 5:
-                ButtonPosition[0] = this.gameObject.transform.localPosition + Vector3.up * 9 + Vector3.right * 5;
+                ButtonPosition[0] = this.gameObject.transform.localPosition + Vector3.up * 9 + Vector3.right * 12;
+                ButtonPosition[1] = this.gameObject.transform.localPosition + Vector3.up * 15+ Vector3.right * 5;
                 ButtonPosition[1] = this.gameObject.transform.localPosition + Vector3.up * 15;
-                ButtonPosition[1] = this.gameObject.transform.localPosition + Vector3.up * 15;
-                ButtonPosition[1] = this.gameObject.transform.localPosition + Vector3.up * 15+Vector3.;
-                ButtonPosition[2] = this.gameObject.transform.localPosition + Vector3.up * 9 + Vector3.left * 5;
+                ButtonPosition[1] = this.gameObject.transform.localPosition + Vector3.up * 15 + Vector3.left * 5;
+                ButtonPosition[2] = this.gameObject.transform.localPosition + Vector3.up * 9 + Vector3.left * 12;
                 return ButtonPosition;
+            default:return null;
 
         }
     }
