@@ -8,40 +8,23 @@ public class FD_Interaction : MonoBehaviour, IcanInteracted
 {
 
     string DebugMessage = string.Empty;
-    public void YesInteracted()
+    public virtual void YesInteracted()
     {
-        Mano_InputManger.IAmTouching += IR_SetParent;
-        Mano_InputManger.IAmRelease += IR_DeleteParent;
+        //这是一个抽象方法，你需要在继承自这个类的具体交互功能去实现它
+        //它会在玩家的手触碰到游戏对象的时候被调用
     }
-    public void NoInteracted()
+    public virtual void NoInteracted()
     {
-        Mano_InputManger.IAmTouching -= IR_SetParent;
-        Mano_InputManger.IAmRelease -= IR_DeleteParent;
+        //这是一个抽象方法，你需要在继承自这个类的具体交互功能去实现它
+        //它会在玩家的手不再接触到游戏对象的时候被调用
     }
-
-    GameObject WhoTouchMe;
-
-    public static event Action test;
-
-
-    //把这个游戏对象的坐标松绑，松手
-    private void IR_DeleteParent()
-    {
-
-        this.gameObject.transform.SetParent(null);
-    }
-
-    //把这个游戏对象的坐标绑到另一个游戏对象身上（抓住）
-    private void IR_SetParent()
-    {
-
-        this.gameObject.transform.SetParent(WhoTouchMe.transform);
-    }
-
+    #region 获取触碰引用
+    private GameObject WhoTouchMe;
     //当有东西在摸这个游戏对象时，取它的引用
     private void OnTriggerStay(Collider WhoTestMe)
     {
         WhoTouchMe = WhoTestMe.gameObject;
     }
+    #endregion
 }
 

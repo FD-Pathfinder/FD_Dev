@@ -13,7 +13,7 @@ public class AudioManager : MonoBehaviour
         Initialized_me();
         Mano_InputManger.IAmRelease += PlayUISound;
         Mano_InputManger.IAmTouching += PlayUISound;
-        FD_Interaction.test += PlayUISound;
+        FD_UI_Debugstate.test += PlayUISound;
     }
     private void Initialized_me()
     {

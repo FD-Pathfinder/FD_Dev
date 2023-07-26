@@ -13,7 +13,7 @@ public class FD_UI_Debugstate : MonoBehaviour,UpdateUI
     //显示光标坐标
     //显示地图坐标
     //显示调试项
-
+    public static event Action test;
     #region 变量声明
     //声明检测对象
     [Tooltip("检测对象-输入系统")]

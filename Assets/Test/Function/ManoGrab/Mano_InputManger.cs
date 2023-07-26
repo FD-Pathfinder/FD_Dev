@@ -38,7 +38,7 @@ public class Mano_InputManger : MonoBehaviour
 
     public string debugmessage= string.Empty;
 
-    GestureInfo FD_gestureInfo;
+
     enum FD_LastGesture
     {
         OPENHAND = 0,
@@ -51,7 +51,7 @@ public class Mano_InputManger : MonoBehaviour
 
     private void Awake()
     {
-        //默认是打开状态，直到第一次监测到合上手
+        //默认是打开状态，直到第一次监测到手背
         _Playerlastgesture = FD_LastGesture.OPENHAND;
         //获取地图上的小光
     }
@@ -61,7 +61,6 @@ public class Mano_InputManger : MonoBehaviour
     }
     void Update()
     {
-        FD_gestureInfo = ManomotionManager.Instance.Hand_infos[0].hand_info.gesture_info;
         //让光标粘手上
         LetCursorAttachToHand();
         //告诉订阅了手势更改的家伙手势改变了,只会在手势改变的时候更新
@@ -83,7 +82,7 @@ public class Mano_InputManger : MonoBehaviour
     private void LetCursorAttachToHand()
     {
         //加上深度估计值后的手部坐标被赋值给光标预制件，这里必须要用ManoUtils给的函数，不然与主相机的位置关系会出错
-        _PlayerCursor.transform.position = ManoUtils.Instance.CalculateNewPositionDepth(ManomotionManager.Instance.Hand_infos[0].hand_info.tracking_info.palm_center, ManomotionManager.Instance.Hand_infos[0].hand_info.tracking_info.skeleton.joints[9].z);
+        _PlayerCursor.transform.position = ManoUtils.Instance.CalculateNewPositionDepth(ManomotionManager.Instance.Hand_infos[0].hand_info.tracking_info.palm_center, ManomotionManager.Instance.Hand_infos[0].hand_info.tracking_info.depth_estimation);
     }
 
 
@@ -92,19 +91,18 @@ public class Mano_InputManger : MonoBehaviour
     /// </summary>
     private void SendingStateChange()
     {
-        if (FD_gestureInfo.mano_gesture_continuous == ManoGestureContinuous.OPEN_HAND_GESTURE && _Playerlastgesture == FD_LastGesture.CLOSEHAND)
+        if (ManomotionManager.Instance.Hand_infos[0].hand_info.gesture_info.hand_side == HandSide.Backside && _Playerlastgesture == FD_LastGesture.CLOSEHAND)
         {
             IAmRelease?.Invoke();
             _Playerlastgesture = FD_LastGesture.OPENHAND;
-            debugmessage+= "广播手打开";
+            debugmessage += "广播手打开";
         }
-        else if (FD_gestureInfo.mano_gesture_continuous == ManoGestureContinuous.CLOSED_HAND_GESTURE && _Playerlastgesture == FD_LastGesture.OPENHAND)
+        else if (ManomotionManager.Instance.Hand_infos[0].hand_info.gesture_info.hand_side == HandSide.Palmside && _Playerlastgesture == FD_LastGesture.OPENHAND)
         {
             IAmTouching?.Invoke();
             _Playerlastgesture = FD_LastGesture.CLOSEHAND;
             debugmessage+= "广播手关闭";
         }
-        debugmessage+= "对比上次没变化，每次闪动代表一次更新状态";
     }
 
 
