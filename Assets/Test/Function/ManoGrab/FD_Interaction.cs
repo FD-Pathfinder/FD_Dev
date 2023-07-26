@@ -10,8 +10,9 @@ public class FD_Interaction : MonoBehaviour, IcanInteracted
     string DebugMessage = string.Empty;
     public void YesInteracted()
     {
-        Mano_InputManger.IAmTouching += IR_SetParent;
-        Mano_InputManger.IAmRelease += IR_DeleteParent;
+        Mano_InputManger.IAmTouching += IR_SetParent; //接触到会触发什么
+        Mano_InputManger.IAmRelease += IR_DeleteParent; //松开会触发什么
+                                                        //在这个方法下列表触发各个方法
     }
     public void NoInteracted()
     {
