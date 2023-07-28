@@ -6,26 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/External/_ARFoundation/Settings/Project Configuration/SampleScene.unity
+    path: Assets/Settings/Project Configuration/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
     path: Assets/Test/Scenes/T5_mano.unity
     guid: 60a5925159e9d9048a78e55caf6b61d1
-  - enabled: 0
-    path: Assets/External/_Mano/ManoMotion ARFoundation/Examples/Inetraction/Example
-      Interaction.unity
-    guid: 27f43207c9bffcb49bcf1d568179f758
-  - enabled: 0
-    path: Assets/External/_Mano/ManoMotion ARFoundation/Scenes/ManoMotionSDKProFeatures.unity
-    guid: 2e8ecbb9ea2e340009ac8d7dd6fbd854
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 6ee72d15cf39dd748a13eac57397b9af,
       type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 0465d33c6aee55f44b0237db8b0e0259,
       type: 2}
-    com.unity.xr.magicleap.magic_leap_settings: {fileID: 11400000, guid: 7f67b39dfce1a9d449f90f9de5d6ee6b,
-      type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3fd4fc0127790db4bae83f7b77da8d45,
-      type: 2}
-    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 85d54f744a2322944a29831d2ed04e45,
       type: 2}

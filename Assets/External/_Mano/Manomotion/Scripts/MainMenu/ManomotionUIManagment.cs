@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// 处理许可licence etc.临时显示帧数和处理时间
+/// Handles the UI, FPS, version, licence etc.
 /// </summary>
 public class ManomotionUIManagment : MonoBehaviour
 {
@@ -32,10 +32,11 @@ public class ManomotionUIManagment : MonoBehaviour
             licenseInfoGizmo = transform.Find("LicenseInfoGizmo").gameObject;
         }
         ManomotionManager.OnManoMotionFrameProcessed += DisplayInformationAfterManoMotionProcessFrame;
+        ManomotionManager.OnManoMotionLicenseInitialized += HandleManoMotionManagerInitialized;
     }
 
     /// <summary>
-    /// 在一次mano后更新帧数和处理一帧的时间
+    /// Displays information from the ManoMotion Manager after the frame has been processed.
     /// </summary>
     void DisplayInformationAfterManoMotionProcessFrame()
     {
@@ -44,7 +45,7 @@ public class ManomotionUIManagment : MonoBehaviour
     }
 
     /// <summary>
-    ///切换游戏对象的可见性。
+    /// Toggles the visibility of a Gameobject.
     /// </summary>
     /// <param name="givenObject">Requires a Gameobject</param>
     public void ToggleUIElement(GameObject givenObject)
@@ -53,7 +54,7 @@ public class ManomotionUIManagment : MonoBehaviour
     }
 
     /// <summary>
-    /// 使用计算的“每秒帧数”值更新文本字段。
+    /// Updates the text field with the calculated Frames Per Second value.
     /// </summary>
     public void UpdateFPSText()
     {
@@ -61,7 +62,7 @@ public class ManomotionUIManagment : MonoBehaviour
     }
 
     /// <summary>
-    /// 使用计算的处理时间值更新文本字段。
+    /// Updates the text field with the calculated processing time value.
     /// </summary>
     public void UpdateProcessingTime()
     {
@@ -69,7 +70,7 @@ public class ManomotionUIManagment : MonoBehaviour
     }
 
     /// <summary>
-    /// 切换“显示许可信息”的可见性
+    /// Toggles the visibility of Showing the licenseInformation
     /// </summary>
     public void ToggleShowLicenseInfo()
     {
@@ -98,29 +99,29 @@ public class ManomotionUIManagment : MonoBehaviour
     }
 
     /// <summary>
-    /// 显示SDK的当前版本。
+    /// Shows the current version of the SDK.
     /// </summary>
-    //public void HandleManoMotionManagerInitialized()
-    //{
-    //    versionText.text = "";
-    //    float versionFull = ManomotionManager.Instance.Mano_License.version;
-    //    string prefix = "ManoMotion:";
+    public void HandleManoMotionManagerInitialized()
+    {
+        versionText.text = "Version PRO ";
+        float versionFull = ManomotionManager.Instance.Mano_License.version;
+        string prefix = "Version PRO ";
 
-    //    string versionString = versionFull.ToString();
+        string versionString = versionFull.ToString();
 
-    //    if (versionString.Length == 4)
-    //    {
-    //        versionString = versionString.Insert(versionString.Length - 1, ".");
-    //    }
+        if (versionString.Length == 4)
+        {
+            versionString = versionString.Insert(versionString.Length - 1, ".");
+        }
 
-    //    else if (versionString.Length == 5)
-    //    {
-    //        versionString = versionString.Insert(versionString.Length - 2, ".");
-    //        versionString = versionString.Insert(versionString.Length - 1, ".");
-    //    }
+        else if (versionString.Length == 5)
+        {
+            versionString = versionString.Insert(versionString.Length - 2, ".");
+            versionString = versionString.Insert(versionString.Length - 1, ".");
+        }
 
-    //    int versionLength = versionFull.ToString().Length;
+        int versionLength = versionFull.ToString().Length;
 
-    //    versionText.text = prefix += versionString;
-    //}
+        versionText.text = prefix += versionString;
+    }
 }

@@ -11,7 +11,8 @@ public class FD_ArManager : MonoBehaviour
      * 提供一个开关
      * 打开：将场景地图放到追踪到的图像上
      * 关闭：将场景地图固定（ARspace）*/
-
+    [SerializeField]
+    private GameObject test;
 
     [Tooltip("同步状态，开就是把地图一直摆到图像上，关就是锁定地图在现实世界的位置，值由开关控制")]
     private bool _IsUpdateMapLocation=true;

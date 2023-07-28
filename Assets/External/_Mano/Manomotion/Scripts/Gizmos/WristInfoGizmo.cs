@@ -79,8 +79,8 @@ public class WristInfoGizmo : MonoBehaviour
     }
 
     /// <summary>
-    /// 如果SDK需要计算手腕信息，那就显示手腕信息
-    /// 如果没检测到手，左右球体会被设置成(-1,-1,-1)
+    /// If SDK should run wrist information ShowWristInformation will calculate the normalized values to fit the hands position.
+    /// if no hand is detected the left and right sphere will be set to position (-1,-1,-1)
     /// </summary>
     public void ShowWristInformation()
     {

@@ -52,7 +52,7 @@ public class ARCubeInteraction : MonoBehaviour
             cubeRenderer.sharedMaterial = arCubeMaterial[1];
         }
 
-        MoveWhenGrab(other);
+        //MoveWhenGrab(other);
         RotateWhenHolding(other);
         SpawnWhenClicking(other);
     }

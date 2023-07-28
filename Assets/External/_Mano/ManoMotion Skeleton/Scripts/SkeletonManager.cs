@@ -154,8 +154,8 @@ public class SkeletonManager : MonoBehaviour
         skeletonParent.transform.rotation = Camera.main.transform.rotation;
 
         UpdateJointPositions();
-        //ftOrRightHand();
-       //pdateJointorientation();
+        LeftOrRightHand();
+        UpdateJointorientation();
 
     }
 

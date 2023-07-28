@@ -23,19 +23,6 @@ public class IconMainMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// 触发碰撞判定
-    /// </summary>
-    /// <param name="other"></param>
-    private void OnTriggerStay(Collider other)
-    {
-        if (ManomotionManager.Instance.Hand_infos[0].hand_info.gesture_info.state>=7)
-        {
-            other.gameObject.transform.position = this.transform.position;
-        }
-    }
-
-
-    /// <summary>
     /// Checks for changes on the orientation of the device.
     /// </summary>
     void CheckForScreenOrientationChange()

@@ -9,10 +9,21 @@ using UnityEngine.UIElements;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using static UnityEngine.UI.ContentSizeFitter;
-//定义一个IcanInteractive接口，用来告诉光标接触到的物体有没有准备交互用到的函数
+
+/// <summary>
+///<para>定义一个IcanInteractive接口，用来告诉光标接触到的物体有没有准备交互用到的函数</para>
+/// Yes会在玩家光标碰上游戏对象时调用，记得订阅输入事件以及进行一些初始化，setactive=ture
+/// <para>NO会在玩家光标离开游戏对象时调用，记得取消订阅输入事件以及还原状态，必须setactive=false</para>
+/// </summary>
 public interface IcanInteracted
 {
+    /// <summary>
+    /// Yes会在玩家光标碰上游戏对象时调用，记得订阅输入事件以及进行一些初始化，enable会自动在光标接触到它的时候激活
+    /// </summary>
     public void YesInteracted();
+    /// <summary>
+    /// NO会在玩家光标离开游戏对象时调用，记得取消订阅输入事件以及还原状态，enable一定要记得关，节省资源
+    /// </summary>
     public void NoInteracted();
 }
 
@@ -31,13 +42,15 @@ public class Mano_InputManger : MonoBehaviour
         get { return _PlayerCursor; }
     }
 
-    private PlayerCusor SC_PlayerCursor;
+    [SerializeField]
+    private FD_UI UiManager;
+
 
     public static event Action IAmTouching;
     public static event Action IAmRelease;
 
+    [HideInInspector]
     public string debugmessage= string.Empty;
-
 
     enum FD_LastGesture
     {
@@ -64,10 +77,13 @@ public class Mano_InputManger : MonoBehaviour
         //让光标粘手上
         LetCursorAttachToHand();
         //告诉订阅了手势更改的家伙手势改变了,只会在手势改变的时候更新
-        SendingStateChange();
-
     }
-   
+
+    private void FixedUpdate()
+    {
+        SendingStateChange();
+    }
+
     /// <summary>
     /// 获取生成出来的玩家光标，同时初始化一遍父对象
     /// </summary>
@@ -91,13 +107,13 @@ public class Mano_InputManger : MonoBehaviour
     /// </summary>
     private void SendingStateChange()
     {
-        if (ManomotionManager.Instance.Hand_infos[0].hand_info.gesture_info.hand_side == HandSide.Backside && _Playerlastgesture == FD_LastGesture.CLOSEHAND)
+        if (ManomotionManager.Instance.Hand_infos[0].hand_info.gesture_info.mano_gesture_continuous != ManoGestureContinuous.POINTER_GESTURE && _Playerlastgesture == FD_LastGesture.CLOSEHAND)
         {
             IAmRelease?.Invoke();
             _Playerlastgesture = FD_LastGesture.OPENHAND;
             debugmessage += "广播手打开";
         }
-        else if (ManomotionManager.Instance.Hand_infos[0].hand_info.gesture_info.hand_side == HandSide.Palmside && _Playerlastgesture == FD_LastGesture.OPENHAND)
+        else if (ManomotionManager.Instance.Hand_infos[0].hand_info.gesture_info.mano_gesture_continuous == ManoGestureContinuous.POINTER_GESTURE && _Playerlastgesture == FD_LastGesture.OPENHAND)
         {
             IAmTouching?.Invoke();
             _Playerlastgesture = FD_LastGesture.CLOSEHAND;

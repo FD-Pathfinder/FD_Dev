@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem.EnhancedTouch;
+
 
 public class PlayerCusor : MonoBehaviour
 {
@@ -24,8 +24,8 @@ public class PlayerCusor : MonoBehaviour
 
         if(BeTouch.GetComponent<FD_Interaction>()!=null)
         {
-            BeTouch.GetComponent<FD_Interaction>().YesInteracted();
             BeTouch.GetComponent<FD_Interaction>().enabled = true;
+            BeTouch.GetComponent<FD_Interaction>().YesInteracted();
         }
     }
 
@@ -35,7 +35,6 @@ public class PlayerCusor : MonoBehaviour
         if (BeTouch.GetComponent<FD_Interaction>() != null)
         {
             BeTouch.GetComponent<FD_Interaction>().NoInteracted();
-            BeTouch.GetComponent<FD_Interaction>().enabled = false;
         }
     }
 
