@@ -12,7 +12,7 @@ namespace ManoMotion.RunTime
         private List<GameObject> runTimeObjects = new List<GameObject>();
         private List<UIIconBehavior.IconFunctionality> defaultFunctionality = new List<UIIconBehavior.IconFunctionality>();
 
-        //用来储存将要显示在ui上的数据的当前值
+        //Used to store the current values about wich features to show after the instructions.
         private bool showHandStates;
         private bool showManoClass;
         private bool showHandSide;
@@ -53,7 +53,6 @@ namespace ManoMotion.RunTime
 
         public void InitializeRuntimeComponents()
         {
-            //需要一个manovisuallization组件
             if (!manoVisualization)
             {
                 try
@@ -545,7 +544,7 @@ namespace ManoMotion.RunTime
         }
 
         /// <summary>
-        /// 更新显示在屏幕上的信息
+        /// Saves the ManoMotion features to display.
         /// </summary>
         public void SaveDefalutFeaturesToDisplay()
         {

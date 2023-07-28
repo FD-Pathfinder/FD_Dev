@@ -25,11 +25,12 @@ public class GizmoManager : MonoBehaviour
     }
     #endregion
 
-    #region  UI控件声明，这些控件会根据manomotion的运行状态在屏幕上显示
-
+    /// The color of the hand state UI.
     public Color disabledStateColor;
+
     [SerializeField]
     private Image[] stateImages;
+
     [SerializeField]
     private GameObject leftRightGizmo;
     [SerializeField]
@@ -56,24 +57,13 @@ public class GizmoManager : MonoBehaviour
     private FingerInfoGizmo fingerInfoGizmo;
     [SerializeField]
     private ContourGizmo contourGizmo;
+
     [SerializeField]
     private Text currentSmoothingValue;
-    private GameObject topFlag;
-    private GameObject leftFlag;
-    private GameObject rightFlag;
-    private Text leftRightText;
-    private Text manoClassText;
-    private Text handSideText;
-    private Text continuousGestureText;
-    private TMP_Text fingerFlag;
-    private TMP_Text wristFlag;
-    private TextMeshProUGUI depthEstimationValue;
-    private Image depthFillAmmount;
-    #endregion
-   
-    #region  布尔值声明，这些值会用来控制manomotion提供的功能是否启用
+
     [SerializeField]
     private bool _showGestureAnalysis;
+
     [SerializeField]
     private bool _showPickDrop;
     [SerializeField]
@@ -110,14 +100,28 @@ public class GizmoManager : MonoBehaviour
     private bool _showContour;
     [SerializeField]
     private bool skeleton3d;
-    //关键参数
     [SerializeField]
     private bool gestures;
     [SerializeField]
     private bool fastMode;
-    #endregion
 
-    #region  给private布尔值设置访问方式
+    private GameObject topFlag;
+    private GameObject leftFlag;
+    private GameObject rightFlag;
+
+    private Text leftRightText;
+    private Text manoClassText;
+    private Text handSideText;
+    private Text continuousGestureText;
+
+    private TMP_Text fingerFlag;
+    private TMP_Text wristFlag;
+
+    private TextMeshProUGUI depthEstimationValue;
+    private Image depthFillAmmount;
+
+
+    #region Properties
 
     public bool ShowLeftRight
     {
@@ -411,12 +415,8 @@ public class GizmoManager : MonoBehaviour
 
     #endregion
 
-    /// <summary>
-    /// 设置根据布尔值设置哪些manomotion的功能应该被启用
-    /// <summary>
     void Start()
     {
-        #region 确保游戏至少有一个ManoMotion控件管理
         if (_instance == null)
         {
             _instance = this;
@@ -425,10 +425,8 @@ public class GizmoManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        #endregion
-       
+
         SetGestureDescriptionParts();
-        
         SetFlagDescriptionParts();
         HighlightStatesToStateDetection(0);
         InitializeFlagParts();
@@ -437,27 +435,21 @@ public class GizmoManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 设置根据布尔值设置哪些manomotion的功能应该被启用
-    /// <summary>
+    /// Sets which features that should be calculated
+    /// </summary>
     private void SetFeaturesToCalculate()
     {
-        //是否计算手势，详见manomotion手势支持
         ManomotionManager.Instance.ShouldCalculateGestures(ShowGestures);
-        //是否计算3D骨架
         ManomotionManager.Instance.ShouldCalculateSkeleton3D(ShowSkeleton3d);
-        //是否用快速模式，可能会产生点问题
         ManomotionManager.Instance.ShouldRunFastMode(Fastmode);
-        //是否计算手腕信息
         ManomotionManager.Instance.ShouldRunWristInfo(ShowWristInfo);
-        //是否计算手指信息
         ManomotionManager.Instance.ShouldRunFingerInfo(ShowFingerInfo);
-        //是否进行外轮廓估计，很耗性能
         ManomotionManager.Instance.ShouldRunContour(ShowContour);
     }
 
     /// <summary>
-    /// 每帧更新手势信息，跟踪信息，警告，还有其他的杂七杂八
-    /// 同时也更新UI上的显示信息
+    /// Updates the GestureInfo, TrackingInfo, Warning and Session every frame.
+    /// Also updates all the display methods
     /// </summary>
     void Update()
     {
@@ -855,9 +847,9 @@ public class GizmoManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 通过一个槽位的满与空的程度来显示手的开合状态
+    /// Visualizes the current hand state by coloring white the images up to that value and turning grey the rest
     /// </summary>
-    /// <param name="stateValue">需要一个hand state </param>
+    /// <param name="stateValue">Requires a hand state value to assign the colors accordingly </param>
     void HighlightStatesToStateDetection(int stateValue)
     {
         for (int i = 0; i < stateImages.Length; i++)
@@ -874,7 +866,7 @@ public class GizmoManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 根据ManoManger给的值来显示屏幕边缘
+    /// Highlights the edges of the screen according to the warning given by the ManoMotion Manager
     /// </summary>
     /// <param name="warning">Requires a Warning.</param>
     void DisplayApproachingToEdgeFlags(Warning warning)
@@ -900,7 +892,7 @@ public class GizmoManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 显示手腕信息的错误代码
+    /// Prints out the wrist information error codeif wrist information can´t be calculated correctly.
     /// </summary>
     /// <param name="trackingInfo"></param>
     private void DisplayWristFlags(TrackingInfo trackingInfo, GestureInfo gestureInfo)
@@ -931,9 +923,9 @@ public class GizmoManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 显示与手指错误相关的代码
+    /// Prints out the finger infor´mation error code if finger information can´t be calculated correctly.
     /// </summary>
-    /// <param name="trackingInfo">trackinginfo参数</param>
+    /// <param name="trackingInfo">tracking information</param>
     private void DisplayFingerFlags(TrackingInfo trackingInfo, GestureInfo gestureInfo)
     {
         if (fingerFlag != null)
@@ -998,16 +990,16 @@ public class GizmoManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 是否显示平滑度
+    /// Displayes the smoothing slider.
     /// </summary>
-    /// <param name="display">如果设置 <c>true</c> 就会显示</param>
+    /// <param name="display">If set to <c>true</c> display.</param>
     public void ShouldDisplaySmoothingSlider(bool display)
     {
         smoothingSliderControler.SetActive(display);
     }
 
     /// <summary>
-    /// 显示平滑程度滑块，就是解决抖动问题的一个参数：平滑度
+    /// Displays the smoothing slider that controls the level of delay applied to the calculations for Tracking Information.
     /// </summary>
     public void DisplaySmoothingSlider()
     {
@@ -1015,7 +1007,7 @@ public class GizmoManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 找到那些用来显示具体数值的TEXT组件，包括手势的当前描述，左右手的描述，持续姿势的描述
+    /// Initializes the components of the Manoclass,Continuous Gesture and Trigger Gesture Gizmos
     /// </summary>
     void SetGestureDescriptionParts()
     {
@@ -1026,7 +1018,7 @@ public class GizmoManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 初始化手指和手腕的显示组件，
+    /// Initialized the text componets for displaying the finger and wrist flags.
     /// </summary>
     void SetFlagDescriptionParts()
     {
@@ -1052,7 +1044,7 @@ public class GizmoManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 初始化手有无超出边缘的显示组件
+    /// Initializes the components for the visual illustration of warnings related to approaching edges flags.
     /// </summary>
     void InitializeFlagParts()
     {
