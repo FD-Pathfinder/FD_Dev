@@ -5,24 +5,14 @@ using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour
 {
-    public void YesInteracted()
-    {
-       
-    }
-    public void NoInteracted()
-    {
 
-
-    }
     /// <summary>
     /// 基础属性
     /// </summary>
-    private int maxHealth=10; //角色最大生命值
-    private int currentHealth;//角色当前生命值
+    static public int maxHealth=10, currentHealth;
 
-    private int maxfigure; //角色最大算力
-    private int figure;//角色当前算力
-
+    static public int maxfigure=4, figure; 
+   
 
     /// <summary>
     /// 机体属性
@@ -41,20 +31,23 @@ public class PlayerControl : MonoBehaviour
    
 
     Rigidbody rb;
-    public Transform shuxing; //角色面板
-        // Start is called before the first frame update
+    public HealthUI health;
+       
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        
-       
-
+        health = GetComponent<HealthUI>();
+        currentHealth = maxHealth;
+        figure = maxfigure;
     }
 
     // Update is called once per frame
     void Update()
     {
-            
-        shuxing.transform.position = Camera.main.WorldToScreenPoint(transform.position+Vector3.up*2);//世界坐标转屏幕坐标
-    }
+        if (Input.touchCount > 0)
+        {
+            currentHealth--;
+        }
+
+    }    
 }
